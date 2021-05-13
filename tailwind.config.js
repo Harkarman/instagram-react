@@ -16,10 +16,3 @@ module.exports = {
   },
   plugins: [],
 };
-
-// TODO: add to tailwind config
-// bg-blue-medium
-// text-red-primary
-// text-blue-medium
-// text-gray-base
-// border-grey-primary
