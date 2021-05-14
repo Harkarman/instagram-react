@@ -18,12 +18,12 @@ export default function SignUp() {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    const usernameExists = await doesUsernameExist();
-    if (usernameExists) {
+    const usernameExists = await doesUsernameExist(username);
+    if (!usernameExists) {
       try {
         const createdUserResult = await firebase
           .auth()
-          .createUserWithEmailAndPassword();
+          .createUserWithEmailAndPassword(emailAddress, password);
         //* Authentication
         await createdUserResult.user.updateProfile({ displayName: username });
         //* Firebase user collection (create the document)
@@ -33,6 +33,7 @@ export default function SignUp() {
           fullname,
           emailAddress: emailAddress.toLowerCase(),
           following: [],
+          followers: [],
           dateCreated: Date.now(),
         });
         history.push(ROUTES.DASHBOARD);
@@ -42,6 +43,9 @@ export default function SignUp() {
         setPassword("");
         setError(error.message);
       }
+    } else {
+      setUsername("");
+      setError("That username is already taken, please try something else.");
     }
   };
 
@@ -96,13 +100,6 @@ export default function SignUp() {
               className="text-sm text-grey-base w-full mr-3 py-5 px-4 h-2 border border-grey-primary rounded mb-2"
               onChange={({ target }) => setPassword(target.value)}
               value={password}
-            />
-            <input
-              type="password"
-              aria-label="Confirm your password"
-              placeholder="Confirm password"
-              className="text-sm text-grey-base w-full mr-3 py-5 px-4 h-2 border border-grey-primary rounded mb-2"
-              onChange={({ target }) => setPassword(target.value)}
             />
             <button
               disabled={isInvalid}
