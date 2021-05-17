@@ -8,3 +8,17 @@ export async function doesUsernameExist(username) {
     .get();
   return result.docs.length > 0;
 }
+
+// Get user from firestore where userId === userId(passed from authUser)
+export async function getUserByUserId(userId) {
+  const result = await firebase
+    .firestore()
+    .collection("users")
+    .where("userId", "==", userId)
+    .get();
+  const user = result.docs.map((item) => ({
+    ...item.data(),
+    docId: item.id,
+  }));
+  return user;
+}
