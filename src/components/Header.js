@@ -68,7 +68,7 @@ export default function Header() {
                 </button>
                 {user && (
                   <div className="flex items-center cursor-pointer">
-                    <Link to={`/p/${user.displayName}`}>
+                    <Link to={`/profile/${user.displayName}`}>
                       <img
                         src={`https://firebasestorage.googleapis.com/v0/b/instagram-react-1.appspot.com/o/images%2Favatars%2F${user.uid}.jpg?alt=media`}
                         // src={`/images/avatars/${user.displayName}.jpg`}
