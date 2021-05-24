@@ -2,8 +2,9 @@ import { memo } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
+import * as ROUTES from "../../constants/routes";
 
-const User = ({ username, fullname }) => {
+const User = ({ username, fullname, userId }) => {
   return !username || !fullname ? (
     <Skeleton count={1} height={61} />
   ) : (
@@ -14,7 +15,7 @@ const User = ({ username, fullname }) => {
       <div className="flex items-center justify-between col-span-1">
         <img
           className="rounded-full w-16 flex mr-3"
-          src={`/images/avatars/${username}.jpg`}
+          src={`${ROUTES.CLOUD_IMAGE_PATH}%2Favatars%2F${userId}.jpg?alt=media`}
           alt=""
         />
       </div>
@@ -32,5 +33,3 @@ User.propTypes = {
   username: PropTypes.string,
   fullname: PropTypes.string,
 };
-
-User.whyDidYouRender = true;

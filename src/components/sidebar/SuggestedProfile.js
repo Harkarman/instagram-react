@@ -5,6 +5,7 @@ import {
   updateLoggedInUserFollowing,
   updateFollowedUserFollowers,
 } from "../../services/firebase";
+import * as ROUTES from "../../constants/routes";
 
 export default function SuggestedProfile({
   profileDocId,
@@ -25,7 +26,7 @@ export default function SuggestedProfile({
     <div className="flex flex-row items-center align-items justify-between">
       <div className="flex items-center justify-between">
         <img
-          src={`/images/avatars/${username}.jpg`}
+          src={`${ROUTES.CLOUD_IMAGE_PATH}%2Favatars%2F${profileId}.jpg?alt=media`}
           alt={username}
           className="rounded-full w-8 flex mr-3"
         />
