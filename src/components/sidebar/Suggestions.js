@@ -14,6 +14,7 @@ export default function Suggestions({ userId, following, loggedInUserDocId }) {
     if (userId) {
       suggestedProfiles();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
   return !profiles ? (
     <Skeleton count={1} height={150} className="mt-5" />
