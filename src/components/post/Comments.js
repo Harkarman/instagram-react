@@ -2,6 +2,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { formatDistance, fromUnixTime } from "date-fns";
 import { Link } from "react-router-dom";
+import NewComment from "./NewComment";
 
 export default function Comments({
   docId,
@@ -32,6 +33,12 @@ export default function Comments({
           })}
         </p>
       </div>
+      <NewComment
+        docId={docId}
+        comments={comments}
+        setComments={setComments}
+        commentInput={commentInput}
+      />
     </>
   );
 }
