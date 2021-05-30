@@ -30,7 +30,7 @@ export default function SuggestedProfile({
           alt={username}
           className="rounded-full w-8 flex mr-3"
         />
-        <Link to={`/profile/${username}`}>
+        <Link to={`/p/${username}`}>
           <p className="font-bold text-sm">{username}</p>
         </Link>
       </div>

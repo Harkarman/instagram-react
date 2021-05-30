@@ -68,7 +68,7 @@ export default function Header() {
                 </button>
                 {user && (
                   <div className="flex items-center cursor-pointer">
-                    <Link to={`/profile/${user.displayName}`}>
+                    <Link to={`/p/${user.displayName}`}>
                       <img
                         src={`${ROUTES.CLOUD_IMAGE_PATH}%2Favatars%2F${user.uid}.jpg?alt=media`}
                         // src={`/images/avatars/${user.displayName}.jpg`}
