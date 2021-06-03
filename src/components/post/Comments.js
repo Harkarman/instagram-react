@@ -14,11 +14,6 @@ export default function Comments({
   return (
     <>
       <div className="p-4 pt-1 pb-4">
-        {comments.length >= 3 && (
-          <p className="text-sm text-grey-base mb-1 cursor-pointer">
-            View all {comments.length} comments
-          </p>
-        )}
         {comments.slice(0, 3).map((item) => (
           <p key={`${item.comment}-${item.displayName}`} className="mb-1">
             <Link to={`/p/${item.displayName}`}>
@@ -27,6 +22,11 @@ export default function Comments({
             <span>{item.comment}</span>
           </p>
         ))}
+        {comments.length >= 3 && (
+          <p className="text-sm text-grey-base mb-1 cursor-pointer">
+            View all comments
+          </p>
+        )}
         <p className="text-grey-base uppercase text-xs mt-2">
           {formatDistance(fromUnixTime(postedOn), new Date(), {
             addSuffix: true,
