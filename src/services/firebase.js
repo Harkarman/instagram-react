@@ -9,6 +9,15 @@ export async function doesUsernameExist(username) {
   return result.docs.length > 0;
 }
 
+export async function getUserByUsername(username) {
+  const result = await firebase
+    .firestore()
+    .collection("users")
+    .where("username", "==", username)
+    .get();
+  return result.docs.map((item) => ({ ...item.data(), docId: item.id }));
+}
+
 // Get user from firestore where userId === userId(passed from authUser)
 export async function getUserByUserId(userId) {
   const result = await firebase
