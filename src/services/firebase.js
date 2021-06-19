@@ -101,3 +101,34 @@ export async function getPhotos(userId, following) {
   );
   return photoWithUserDetails;
 }
+
+export async function getUserPhotosByUsername(username) {
+  const [user] = await getUserByUsername(username);
+  const result = await firebase
+    .firestore()
+    .collection("photos")
+    .where("userId", "==", user.userId)
+    .get();
+  return result.docs.map((item) => ({
+    ...item.data(),
+    docId: item.id,
+  }));
+}
+
+export async function isUserFollowingProfile(
+  loggedInUserUsername,
+  profileUserId
+) {
+  const result = await firebase
+    .firestore()
+    .collection("users")
+    .where("username", "==", loggedInUserUsername) // Logged in user
+    .where("following", "array-contains", profileUserId) // User whose profile is being visited
+    .get();
+
+  const [response = {}] = result.docs.map((item) => ({
+    ...item.data(),
+    docId: item.id,
+  }));
+  return response.userId;
+}
