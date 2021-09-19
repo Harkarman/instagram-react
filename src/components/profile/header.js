@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Skeleton from "react-loading-skeleton";
 import useUser from "../../hooks/useUser";
-import { isUserFollowingProfile } from "../../services/firebase";
+import { isUserFollowingProfile, toggleFollow } from "../../services/firebase";
 import * as ROUTES from "../../constants/routes";
 
 export default function Header({
@@ -28,8 +28,14 @@ export default function Header({
     setFollowerCount({
       followerCount: isFollowingProfile ? followerCount - 1 : followerCount + 1,
     });
+    await toggleFollow(
+      isFollowingProfile,
+      user.docId,
+      profileDocId,
+      profileUserId,
+      user.userId
+    );
   };
-  console.log("followerCount", followerCount);
 
   useEffect(() => {
     const isLoggedInUserFollowingProfile = async () => {
@@ -75,7 +81,7 @@ export default function Header({
           )}
         </div>
         <div className="container flex mt-4">
-          {followers === undefined || following === undefined ? (
+          {!followers || !following ? (
             <Skeleton count={1} width={677} height={24} />
           ) : (
             <>
@@ -85,9 +91,9 @@ export default function Header({
                 {photosCount === 1 ? `photo` : `photos`}
               </p>
               <p className="mr-10">
-                <span className="font-bold">{followers.length}</span>
+                <span className="font-bold">{followerCount}</span>
                 {` `}
-                {followers.length === 1 ? `follower` : `followers`}
+                {followerCount === 1 ? `follower` : `followers`}
               </p>
               <p className="mr-10">
                 <span className="font-bold">{following.length}</span>
